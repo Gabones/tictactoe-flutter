@@ -19,6 +19,7 @@ void main() async {
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.setBackgroundColor(Colors.transparent);
     await windowManager.setHasShadow(false);
+    await windowManager.setAsFrameless();
     await windowManager.show();
     await windowManager.focus();
   });
