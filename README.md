@@ -1,17 +1,13 @@
-# jogo_da_velha
+# Tic Tac Toe Game -> Flutter 🎮
 
-Jogo da velha em flutter com provider
+<p>Tic tac toe game made in flutter with provider as state management developed for educational purpose.</p>
+<p>This project support run on web but it truly shines as windows native application 😉</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/43765775/194687266-1480e614-62d7-4540-9776-385d170c1a92.png">
+</p>
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# TicTacToeFlutterProvider" 
+1. Make sure you have all the tools needed to run a flutter project 
+2. Clone the repo and have fun
