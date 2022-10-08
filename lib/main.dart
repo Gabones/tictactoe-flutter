@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:jogo_da_velha/provider/game.dart';
 import 'package:provider/provider.dart';
@@ -6,23 +8,27 @@ import './app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
+  if (!kIsWeb) {
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      await windowManager.ensureInitialized();
 
-  WindowOptions windowOptions = const WindowOptions(
-    size: Size(400, 600),
-    center: true,
-    alwaysOnTop: false,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.hidden,
-  );
+      WindowOptions windowOptions = const WindowOptions(
+        size: Size(400, 600),
+        center: true,
+        alwaysOnTop: false,
+        skipTaskbar: false,
+        titleBarStyle: TitleBarStyle.hidden,
+      );
 
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.setBackgroundColor(Colors.transparent);
-    await windowManager.setHasShadow(false);
-    await windowManager.setAsFrameless();
-    await windowManager.show();
-    await windowManager.focus();
-  });
+      windowManager.waitUntilReadyToShow(windowOptions, () async {
+        await windowManager.setBackgroundColor(Colors.transparent);
+        await windowManager.setHasShadow(false);
+        await windowManager.setAsFrameless();
+        await windowManager.show();
+        await windowManager.focus();
+      });
+    }
+  }
 
   runApp(
     MultiProvider(
