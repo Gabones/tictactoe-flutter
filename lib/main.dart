@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:jogo_da_velha/provider/game.dart';
+import 'package:jogo_da_velha/provider/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import './app.dart';
@@ -32,7 +33,10 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => Game())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => Game()),
+      ],
       child: const App(),
     )
   );

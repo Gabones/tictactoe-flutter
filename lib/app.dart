@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jogo_da_velha/provider/theme.dart';
+import 'package:provider/provider.dart';
 import './pages/home_page.dart';
 
 class App extends StatelessWidget {
@@ -6,9 +8,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+
+    final themeProvider = context.watch<ThemeProvider>();
+
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      theme: ThemeData(
+        primaryColor: themeProvider.selectedPrimaryColor,
+      ),
+      home: const HomePage(),
     );
   }
 }

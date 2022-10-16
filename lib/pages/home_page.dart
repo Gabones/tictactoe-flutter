@@ -1,96 +1,28 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:jogo_da_velha/builders/build_color_dialog.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../provider/game.dart';
+import '../builders/build_main_content.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  static Widget _buildGridItems(BuildContext context, int index) {
-    int gridStateLength = context.read<Game>().getArray.length;
-    int x, y = 0;
-    x = (index / gridStateLength).floor();
-    y = (index % gridStateLength);
-    return GestureDetector(
-      onTap: () => {
-        if(!context.read<Game>().endGame && context.read<Game>().getArray[x][y] == ''){
-          context.read<Game>().setValue(x, y, context.read<Game>().player)
-        }
-      },
-      child: GridTile(
-        child: Card(
-          color: context.read<Game>().color[x][y],
-          child: Center(
-            child: Text(
-              '${context.watch<Game>().getArray[x][y]}',
-              style: const TextStyle(fontSize: 40, color: Colors.deepPurple),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  static Widget _buildMainContent(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 20),
-          Text(
-            !context.read<Game>().endGame ?
-            'Vez do (${context.watch<Game>().player.toUpperCase()}) jogar' :
-            context.read<Game>().player == 'Nenhum' ?
-            'Empate!' :
-            'O player ${context.watch<Game>().player.toUpperCase()} venceu!',
-            style: const TextStyle(
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.height * 0.6),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.6,
-            child:
-            GridView.builder(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                itemCount: pow(context.read<Game>().getArray.length, 2) as int,
-                itemBuilder: _buildGridItems
-            ),
-          ),
-          if(context.read<Game>().endGame)
-            IconButton(
-              onPressed: () => context.read<Game>().resetGame(),
-              icon: const Icon(Icons.replay),
-              color: Colors.white,
-            )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    final primaryColor = Theme.of(context).primaryColor;
+
     return Scaffold(
-      backgroundColor: kIsWeb ? Colors.deepPurple : Colors.transparent,
+      backgroundColor: kIsWeb ? primaryColor : Colors.transparent,
       body: kIsWeb
-          ? _buildMainContent(context)
+          ? buildMainContent(context)
           : Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(35),
-                  color: Colors.deepPurple,
+                  color: primaryColor,
                   border: Border.all(color: Colors.transparent),
               ),
               height: MediaQuery.of(context).size.height,
@@ -145,13 +77,13 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  _buildMainContent(context),
+                  buildMainContent(context),
                 ],
               )
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.settings, color: Theme.of(context).primaryColor,),
-        onPressed: () {},
+        child: Icon(Icons.settings, color: primaryColor,),
+        onPressed: () => buildColorDialog(context),
         backgroundColor: Colors.white,
       ),
     );
