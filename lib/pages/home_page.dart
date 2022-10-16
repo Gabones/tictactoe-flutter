@@ -93,8 +93,8 @@ class HomePage extends StatelessWidget {
                   color: Colors.deepPurple,
                   border: Border.all(color: Colors.transparent),
               ),
-              height: 600,
-              width: 400,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
                   if(!kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux))
@@ -114,7 +114,9 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () async => await windowManager.maximize(),
+                            onPressed: () async => {
+                              await windowManager.isMaximized() ? windowManager.restore() : windowManager.maximize()
+                            },
                             child: const Icon(
                               Icons.maximize,
                               color: Colors.white,
@@ -146,7 +148,12 @@ class HomePage extends StatelessWidget {
                   _buildMainContent(context),
                 ],
               )
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.settings, color: Theme.of(context).primaryColor,),
+        onPressed: () {},
+        backgroundColor: Colors.white,
+      ),
     );
   }
 }
