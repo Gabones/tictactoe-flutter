@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jogo_da_velha/provider/theme.dart';
 import 'package:provider/provider.dart';
+
+import '../provider/theme.dart';
 
 Future<dynamic> buildColorDialog(BuildContext context) {
   final colorTheme = context.read<ThemeProvider>();

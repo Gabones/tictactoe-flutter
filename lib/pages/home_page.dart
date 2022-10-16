@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:jogo_da_velha/builders/build_color_dialog.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../builders/build_main_content.dart';
+import '../builders/build_color_dialog.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

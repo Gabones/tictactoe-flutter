@@ -1,11 +1,13 @@
 import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:jogo_da_velha/provider/game.dart';
-import 'package:jogo_da_velha/provider/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
+
 import './app.dart';
+import '../provider/game.dart';
+import '../provider/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
