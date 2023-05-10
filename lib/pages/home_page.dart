@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,24 +12,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
-      backgroundColor: kIsWeb ? primaryColor : Colors.transparent,
+      backgroundColor: kIsWeb || Platform.isAndroid || Platform.isIOS ? primaryColor : Colors.transparent,
       body: kIsWeb
           ? buildMainContent(context)
           : Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(35),
-                  color: primaryColor,
-                  border: Border.all(color: Colors.transparent),
+                borderRadius: BorderRadius.circular(35),
+                color: primaryColor,
+                border: Border.all(color: Colors.transparent),
               ),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  if(!kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux))
+                  if (!kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux))
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Row(
@@ -41,9 +40,7 @@ class HomePage extends StatelessWidget {
                               Icons.minimize,
                               color: Colors.white,
                             ),
-                            style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.all(Colors.white38)
-                            ),
+                            style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.white38)),
                           ),
                           TextButton(
                             onPressed: () async => {
@@ -53,9 +50,7 @@ class HomePage extends StatelessWidget {
                               Icons.maximize,
                               color: Colors.white,
                             ),
-                            style: ButtonStyle(
-                                overlayColor: MaterialStateProperty.all(Colors.white38)
-                            ),
+                            style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.white38)),
                           ),
                           TextButton(
                             onPressed: () async => await windowManager.close(),
@@ -64,25 +59,24 @@ class HomePage extends StatelessWidget {
                               color: Colors.white,
                             ),
                             style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.all(Colors.white38),
-                              shape:  MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(18),
-                                      ),
-                                  )
-                              )
-                            ),
+                                overlayColor: MaterialStateProperty.all(Colors.white38),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(18),
+                                  ),
+                                ))),
                           ),
                         ],
                       ),
                     ),
                   buildMainContent(context),
                 ],
-              )
-      ),
+              )),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.settings, color: primaryColor,),
+        child: Icon(
+          Icons.settings,
+          color: primaryColor,
+        ),
         onPressed: () => buildColorDialog(context),
         backgroundColor: Colors.white,
       ),
